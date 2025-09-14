@@ -1,32 +1,17 @@
 ﻿using Company.Backend.Data;
+using Company.Backend.UnitsOfWork.Interfaces;
 using Company.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Orders.Backend.Controllers;
 
 namespace Company.Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class EmployeesController : ControllerBase
+public class EmployeesController : GenericController<Employee>
 {
-    private readonly DataContext _context;
-
-    public EmployeesController(DataContext context)
+    public EmployeesController(IGenericUnitOfWork<Employee> unitOfWork) : base(unitOfWork)
     {
-        _context = context;
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetAsync()
-    {
-        return Ok(await _context.Employees.ToListAsync());
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> PostAsync(Employee employee)
-    {
-        _context.Employees.Add(employee);
-        await _context.SaveChangesAsync();
-        return Ok(employee);
     }
 }
