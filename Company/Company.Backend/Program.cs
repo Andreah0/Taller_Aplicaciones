@@ -4,6 +4,7 @@ using Company.Backend.Repositories.Interfaces;
 using Company.Backend.Respositories.Implementations;
 using Company.Backend.UnitsOfWork.Implementations;
 using Company.Backend.UnitsOfWork.Interfaces;
+using Company.Backend.Respositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddTransient<SeedDb>();
 
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+builder.Services.AddScoped<IEmployeesRepository, EmployeesRepository>();
+builder.Services.AddScoped<IEmployeesUnitOfWork, EmployeesUnitOfWork>();
 
 var app = builder.Build();
 

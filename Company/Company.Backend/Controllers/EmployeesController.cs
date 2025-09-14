@@ -11,7 +11,21 @@ namespace Company.Backend.Controllers;
 [Route("api/[controller]")]
 public class EmployeesController : GenericController<Employee>
 {
-    public EmployeesController(IGenericUnitOfWork<Employee> unitOfWork) : base(unitOfWork)
+    private readonly IEmployeesUnitOfWork _employeesUnitOfWork;
+
+    public EmployeesController(IGenericUnitOfWork<Employee> unitOfWork, IEmployeesUnitOfWork employeesUnitOfWork) : base(unitOfWork)
     {
+        _employeesUnitOfWork = employeesUnitOfWork;
+    }
+
+    [HttpGet("SearchEmployee/{name}")]
+    public async Task<IActionResult> GetByName(string name)
+    {
+        var action = await _employeesUnitOfWork.GetByNameAsync(name);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return NotFound();
     }
 }
