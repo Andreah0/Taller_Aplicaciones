@@ -31,6 +31,51 @@ public class SeedDb
             _context.Employees.Add(new Employee { FirstName = "Miguel", LastName = "Santos", IsActive = false, HireDate = DateTime.Now.AddYears(-8), Salary = 1300000M });
             _context.Employees.Add(new Employee { FirstName = "Laura", LastName = "Diaz", IsActive = true, HireDate = DateTime.Now.AddYears(-1).AddMonths(-2), Salary = 1600000M });
             _context.Employees.Add(new Employee { FirstName = "Andres", LastName = "Quintero", IsActive = true, HireDate = DateTime.Now.AddMonths(-6), Salary = 1700000M });
+
+            _context.Employees.Add(new Employee { FirstName = "Camila", LastName = "Suarez", IsActive = true, HireDate = DateTime.Now.AddYears(-3), Salary = 2100000M });
+            _context.Employees.Add(new Employee { FirstName = "Felipe", LastName = "Ruiz", IsActive = true, HireDate = DateTime.Now.AddYears(-2), Salary = 2300000M });
+            _context.Employees.Add(new Employee { FirstName = "Valentina", LastName = "Mora", IsActive = false, HireDate = DateTime.Now.AddYears(-5), Salary = 1800000M });
+            _context.Employees.Add(new Employee { FirstName = "Daniel", LastName = "Lopez", IsActive = true, HireDate = DateTime.Now.AddYears(-1), Salary = 1950000M });
+            _context.Employees.Add(new Employee { FirstName = "Isabella", LastName = "Cardona", IsActive = true, HireDate = DateTime.Now.AddYears(-4), Salary = 2500000M });
+            _context.Employees.Add(new Employee { FirstName = "Samuel", LastName = "Hernandez", IsActive = true, HireDate = DateTime.Now.AddYears(-2), Salary = 2850000M });
+            _context.Employees.Add(new Employee { FirstName = "Lucia", LastName = "Ramirez", IsActive = true, HireDate = DateTime.Now.AddYears(-3), Salary = 2650000M });
+            _context.Employees.Add(new Employee { FirstName = "Mateo", LastName = "Gonzalez", IsActive = false, HireDate = DateTime.Now.AddYears(-6), Salary = 1900000M });
+            _context.Employees.Add(new Employee { FirstName = "Sara", LastName = "Ortega", IsActive = true, HireDate = DateTime.Now.AddYears(-2), Salary = 2400000M });
+            _context.Employees.Add(new Employee { FirstName = "Tomas", LastName = "Rincon", IsActive = true, HireDate = DateTime.Now.AddYears(-1), Salary = 3100000M });
+
+            _context.Employees.Add(new Employee { FirstName = "Juliana", LastName = "Morales", IsActive = true, HireDate = DateTime.Now.AddYears(-3), Salary = 2750000M });
+            _context.Employees.Add(new Employee { FirstName = "Sebastian", LastName = "Reyes", IsActive = false, HireDate = DateTime.Now.AddYears(-7), Salary = 1600000M });
+            _context.Employees.Add(new Employee { FirstName = "Ana", LastName = "Vargas", IsActive = true, HireDate = DateTime.Now.AddYears(-2), Salary = 2000000M });
+            _context.Employees.Add(new Employee { FirstName = "David", LastName = "Garcia", IsActive = true, HireDate = DateTime.Now.AddYears(-1), Salary = 2300000M });
+            _context.Employees.Add(new Employee { FirstName = "Mariana", LastName = "Castaño", IsActive = true, HireDate = DateTime.Now.AddYears(-3), Salary = 2600000M });
+            _context.Employees.Add(new Employee { FirstName = "Simon", LastName = "Patiño", IsActive = false, HireDate = DateTime.Now.AddYears(-5), Salary = 1800000M });
+            _context.Employees.Add(new Employee { FirstName = "Elena", LastName = "Salazar", IsActive = true, HireDate = DateTime.Now.AddYears(-2), Salary = 2150000M });
+            _context.Employees.Add(new Employee { FirstName = "Gabriel", LastName = "Restrepo", IsActive = true, HireDate = DateTime.Now.AddYears(-3), Salary = 2450000M });
+            _context.Employees.Add(new Employee { FirstName = "Natalia", LastName = "Cano", IsActive = true, HireDate = DateTime.Now.AddYears(-1), Salary = 2700000M });
+            _context.Employees.Add(new Employee { FirstName = "Emilio", LastName = "Lozano", IsActive = false, HireDate = DateTime.Now.AddYears(-8), Salary = 1500000M });
+
+            _context.Employees.Add(new Employee { FirstName = "Daniela", LastName = "Peña", IsActive = true, HireDate = DateTime.Now.AddYears(-1), Salary = 2900000M });
+            _context.Employees.Add(new Employee { FirstName = "Martin", LastName = "Giraldo", IsActive = true, HireDate = DateTime.Now.AddYears(-4), Salary = 2600000M });
+            _context.Employees.Add(new Employee { FirstName = "Claudia", LastName = "Rivera", IsActive = false, HireDate = DateTime.Now.AddYears(-6), Salary = 1700000M });
+            _context.Employees.Add(new Employee { FirstName = "Leonardo", LastName = "Zuluaga", IsActive = true, HireDate = DateTime.Now.AddYears(-2), Salary = 2500000M });
+            _context.Employees.Add(new Employee { FirstName = "Paula", LastName = "Bedoya", IsActive = true, HireDate = DateTime.Now.AddYears(-1), Salary = 3100000M });
+            _context.Employees.Add(new Employee { FirstName = "Ricardo", LastName = "Ospina", IsActive = true, HireDate = DateTime.Now.AddYears(-3), Salary = 2800000M });
+            _context.Employees.Add(new Employee { FirstName = "Veronica", LastName = "Cordoba", IsActive = true, HireDate = DateTime.Now.AddYears(-2), Salary = 2700000M });
+            _context.Employees.Add(new Employee { FirstName = "Oscar", LastName = "Perez", IsActive = true, HireDate = DateTime.Now.AddYears(-1), Salary = 3000000M });
+            _context.Employees.Add(new Employee { FirstName = "Tatiana", LastName = "Muñoz", IsActive = true, HireDate = DateTime.Now.AddYears(-2), Salary = 2650000M });
+            _context.Employees.Add(new Employee { FirstName = "Pablo", LastName = "Cardenas", IsActive = true, HireDate = DateTime.Now.AddYears(-4), Salary = 2300000M });
+
+            _context.Employees.Add(new Employee { FirstName = "Angela", LastName = "Mejia", IsActive = true, HireDate = DateTime.Now.AddYears(-3), Salary = 2550000M });
+            _context.Employees.Add(new Employee { FirstName = "Cristian", LastName = "Torres", IsActive = false, HireDate = DateTime.Now.AddYears(-7), Salary = 1850000M });
+            _context.Employees.Add(new Employee { FirstName = "Adriana", LastName = "Londoño", IsActive = true, HireDate = DateTime.Now.AddYears(-2), Salary = 2400000M });
+            _context.Employees.Add(new Employee { FirstName = "Jorge", LastName = "Arango", IsActive = true, HireDate = DateTime.Now.AddYears(-4), Salary = 2750000M });
+            _context.Employees.Add(new Employee { FirstName = "Sofia", LastName = "Guzman", IsActive = true, HireDate = DateTime.Now.AddYears(-1), Salary = 2950000M });
+            _context.Employees.Add(new Employee { FirstName = "Federico", LastName = "Marin", IsActive = true, HireDate = DateTime.Now.AddYears(-3), Salary = 2600000M });
+            _context.Employees.Add(new Employee { FirstName = "Liliana", LastName = "Vega", IsActive = false, HireDate = DateTime.Now.AddYears(-5), Salary = 1900000M });
+            _context.Employees.Add(new Employee { FirstName = "Oscar", LastName = "Loaiza", IsActive = true, HireDate = DateTime.Now.AddYears(-6), Salary = 2100000M });
+            _context.Employees.Add(new Employee { FirstName = "Nataly", LastName = "Rojas", IsActive = true, HireDate = DateTime.Now.AddYears(-2), Salary = 2800000M });
+            _context.Employees.Add(new Employee { FirstName = "Eduardo", LastName = "Benitez", IsActive = true, HireDate = DateTime.Now.AddYears(-1), Salary = 3200000M });
+
             await _context.SaveChangesAsync();
         }
     }
