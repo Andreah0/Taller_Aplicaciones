@@ -35,6 +35,23 @@ public class EmployeesRepository : GenericRepository<Employee>, IEmployeesReposi
         };
     }
 
+    public override async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Employees.AsQueryable();
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x =>
+                x.FirstName.ToLower().Contains(pagination.Filter.ToLower()) ||
+                x.LastName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+        int count = await queryable.CountAsync();
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = count
+        };
+    }
+
     public async Task<ActionResponse<List<Employee>>> GetByNameAsync(string name)
     {
         var employee = await _context.Employees.Where(x => x.FirstName.ToLower().Contains(name.ToLower()) || x.LastName.ToLower().Contains(name.ToLower())).ToListAsync();

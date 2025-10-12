@@ -8,5 +8,7 @@ public interface IEmployeesUnitOfWork
 {
     Task<ActionResponse<IEnumerable<Employee>>> GetAsync(PaginationDTO pagination);
 
+    Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
+
     Task<ActionResponse<List<Employee>>> GetByNameAsync(string name);
 }
