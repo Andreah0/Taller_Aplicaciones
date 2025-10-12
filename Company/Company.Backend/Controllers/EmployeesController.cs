@@ -4,7 +4,7 @@ using Company.Shared.DTOs;
 using Company.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Orders.Backend.Controllers;
+using Company.Backend.Controllers;
 
 namespace Company.Backend.Controllers;
 

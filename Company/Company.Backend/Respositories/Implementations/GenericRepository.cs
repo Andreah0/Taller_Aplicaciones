@@ -3,7 +3,7 @@ using Company.Backend.Repositories.Interfaces;
 using Company.Shared.DTOs;
 using Company.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
-using Orders.Backend.Helpers;
+using Company.Backend.Helpers;
 
 namespace Company.Backend.Respositories.Implementations;
 

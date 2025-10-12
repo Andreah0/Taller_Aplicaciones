@@ -1,6 +1,6 @@
 ﻿using Company.Shared.DTOs;
 
-namespace Orders.Backend.Helpers;
+namespace Company.Backend.Helpers;
 
 public static class QueryableExtensions
 {

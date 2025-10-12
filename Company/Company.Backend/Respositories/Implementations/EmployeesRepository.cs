@@ -4,7 +4,7 @@ using Company.Shared.DTOs;
 using Company.Shared.Entities;
 using Company.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
-using Orders.Backend.Helpers;
+using Company.Backend.Helpers;
 
 namespace Company.Backend.Respositories.Implementations;
 
@@ -19,9 +19,7 @@ public class EmployeesRepository : GenericRepository<Employee>, IEmployeesReposi
 
     public override async Task<ActionResponse<IEnumerable<Employee>>> GetAsync(PaginationDTO pagination)
     {
-        var queryable = _context.Employees
-            .OrderBy(x => x.FirstName)
-            .Paginate(pagination);
+        var queryable = _context.Employees.AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
