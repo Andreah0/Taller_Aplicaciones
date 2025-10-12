@@ -3,7 +3,7 @@
 
 @if (employees == null)
 {
-    <p>Cargando...</p>
+    <Loading label="Cargando empleados, por favor espera..."/>
 }
 else
 {
@@ -14,7 +14,7 @@ else
         @foreach(var employe in employees)
         {
             <tr>
-                <td>@employe.FirstName</td>
+                <td>@employe.FirstName @employe.LastName</td>
             </tr>
         } 
     </table>

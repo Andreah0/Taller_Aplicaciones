@@ -15,4 +15,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Company.Shared\Company.Shared.csproj" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
 </Project>
