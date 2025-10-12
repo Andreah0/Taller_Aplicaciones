@@ -1,5 +1,6 @@
 ﻿using Company.Backend.Data;
 using Company.Backend.UnitsOfWork.Interfaces;
+using Company.Shared.DTOs;
 using Company.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,17 @@ public class EmployeesController : GenericController<Employee>
     public EmployeesController(IGenericUnitOfWork<Employee> unitOfWork, IEmployeesUnitOfWork employeesUnitOfWork) : base(unitOfWork)
     {
         _employeesUnitOfWork = employeesUnitOfWork;
+    }
+
+    [HttpGet("paginated")]
+    public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
+    {
+        var response = await _employeesUnitOfWork.GetAsync(pagination);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
     }
 
     [HttpGet("SearchEmployee/{name}")]

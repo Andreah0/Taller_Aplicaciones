@@ -7,8 +7,6 @@ public interface IGenericUnitOfWork<T> where T : class
 {
     Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination);
 
-    Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
-
     Task<ActionResponse<T>> GetAsync(int id);
 
     Task<ActionResponse<IEnumerable<T>>> GetAsync();
