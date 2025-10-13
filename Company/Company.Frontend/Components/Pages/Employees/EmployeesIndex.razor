@@ -29,11 +29,15 @@ else
         </ToolBarContent>
         <HeaderContent>
             <MudTh>Empleados</MudTh>
+            <MudTh style="width: 100px;">Estado</MudTh>
+            <MudTh style="width: 100px;">Fecha</MudTh>
             <MudTh style="width: 100px;">Salario</MudTh>
             <MudTh style="width: 270px;">Acciones</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.FirstName @context.LastName</MudTd>
+            <MudTd>@context.HireDate</MudTd>
+            <MudTd>@context.IsActive</MudTd>
             <MudTd>@context.Salary</MudTd>
             <MudTd>
                 <MudTooltip Text="Editar">
