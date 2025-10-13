@@ -30,6 +30,17 @@ public class EmployeesController : GenericController<Employee>
         return BadRequest();
     }
 
+    [HttpGet("totalRecords")]
+    public override async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
+    {
+        var action = await _employeesUnitOfWork.GetTotalRecordsAsync(pagination);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest();
+    }
+
     [HttpGet("SearchEmployee/{name}")]
     public async Task<IActionResult> GetByName(string name)
     {

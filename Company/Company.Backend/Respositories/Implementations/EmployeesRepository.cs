@@ -31,7 +31,10 @@ public class EmployeesRepository : GenericRepository<Employee>, IEmployeesReposi
         return new ActionResponse<IEnumerable<Employee>>
         {
             WasSuccess = true,
-            Result = await queryable.ToListAsync()
+            Result = await queryable
+            .OrderBy(x => x.FirstName)
+            .Paginate(pagination)
+            .ToListAsync()
         };
     }
 
