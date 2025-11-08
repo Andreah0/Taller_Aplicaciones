@@ -5,8 +5,13 @@ using Company.Backend.Respositories.Implementations;
 using Company.Backend.UnitsOfWork.Implementations;
 using Company.Backend.UnitsOfWork.Interfaces;
 using Company.Backend.Respositories.Interfaces;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddControllers();
 

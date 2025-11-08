@@ -1,4 +1,5 @@
 ﻿using Company.Backend.UnitsOfWork.Interfaces;
+using Company.Shared.DTOs;
 using Company.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,28 @@ public class StatesController : GenericController<State>
     public StatesController(IGenericUnitOfWork<State> unitOfWork, IStatesUnitOfWork statesUnitOfWork) : base(unitOfWork)
     {
         _statesUnitOfWork = statesUnitOfWork;
+    }
+
+    [HttpGet("paginated")]
+    public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
+    {
+        var response = await _statesUnitOfWork.GetAsync(pagination);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
+    }
+
+    [HttpGet("totalRecords")]
+    public override async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
+    {
+        var action = await _statesUnitOfWork.GetTotalRecordsAsync(pagination);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest();
     }
 
     [HttpGet]
