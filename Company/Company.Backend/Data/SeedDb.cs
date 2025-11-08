@@ -1,4 +1,6 @@
-﻿using Company.Shared.Entities;
+﻿using Company.Backend.UnitsOfWork.Interfaces;
+using Company.Shared.Entities;
+using Company.Shared.Enums;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
@@ -8,10 +10,12 @@ namespace Company.Backend.Data;
 public class SeedDb
 {
     private readonly DataContext _context;
+    private readonly IUsersUnitOfWork _usersUnitOfWork;
 
-    public SeedDb(DataContext context)
+    public SeedDb(DataContext context, IUsersUnitOfWork usersUnitOfWork)
     {
         _context = context;
+        _usersUnitOfWork = usersUnitOfWork;
     }
 
     public async Task SeedAsync()
@@ -20,11 +24,43 @@ public class SeedDb
         await CheckCountriesFullAsync();
         await CheckCountriesAsync();
         await CheckEmployeesAsync();
+        await CheckRolesAsync();
+        await CheckUserAsync("1010", "Andrea", "Higuita", "andrea@yopmail.com", "311 255 4999", "Calle Luna Calle Sol", UserType.Admin);
+    }
+
+    private async Task CheckRolesAsync()
+    {
+        await _usersUnitOfWork.CheckRoleAsync(UserType.Admin.ToString());
+        await _usersUnitOfWork.CheckRoleAsync(UserType.User.ToString());
+    }
+
+    private async Task<User> CheckUserAsync(string document, string firstName, string lastName, string email, string phone, string address, UserType userType)
+    {
+        var user = await _usersUnitOfWork.GetUserAsync(email);
+        if (user == null)
+        {
+            user = new User
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                UserName = email,
+                PhoneNumber = phone,
+                Address = address,
+                Document = document,
+                City = _context.Cities.FirstOrDefault(),
+                UserType = userType,
+            };
+
+            await _usersUnitOfWork.AddUserAsync(user, "123456");
+            await _usersUnitOfWork.AddUserToRoleAsync(user, userType.ToString());
+        }
+
+        return user;
     }
 
     private async Task CheckCountriesFullAsync()
     {
-        // ✅ si ya existen datos, no vuelvas a ejecutar el .sql
         if (_context.Countries.Any())
         {
             Console.WriteLine("Countries ya existentes, no se ejecuta el .sql");
@@ -43,17 +79,14 @@ public class SeedDb
 
         var script = await File.ReadAllTextAsync(sqlFilePath);
 
-        // 🔹 divide el script en bloques por "GO"
         var batches = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
-        // 🔹 obten la conexión subyacente de EF
         var connection = (SqlConnection)_context.Database.GetDbConnection();
         var wasClosed = connection.State == System.Data.ConnectionState.Closed;
 
         if (wasClosed)
             await connection.OpenAsync();
 
-        // 🔹 ejecuta todo dentro de una transacción
         await using var transaction = await connection.BeginTransactionAsync();
 
         try
@@ -67,7 +100,7 @@ public class SeedDb
                 using var command = connection.CreateCommand();
                 command.Transaction = (SqlTransaction)transaction;
                 command.CommandText = commandText;
-                command.CommandTimeout = 600; // ⏱️ aumenta el tiempo máximo por bloque
+                command.CommandTimeout = 600;
                 await command.ExecuteNonQueryAsync();
             }
 
