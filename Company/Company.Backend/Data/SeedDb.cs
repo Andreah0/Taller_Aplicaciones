@@ -1,4 +1,7 @@
 ﻿using Company.Shared.Entities;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace Company.Backend.Data;
 
@@ -14,8 +17,74 @@ public class SeedDb
     public async Task SeedAsync()
     {
         await _context.Database.EnsureCreatedAsync();
+        await CheckCountriesFullAsync();
         await CheckCountriesAsync();
         await CheckEmployeesAsync();
+    }
+
+    private async Task CheckCountriesFullAsync()
+    {
+        // ✅ si ya existen datos, no vuelvas a ejecutar el .sql
+        if (_context.Countries.Any())
+        {
+            Console.WriteLine("Countries ya existentes, no se ejecuta el .sql");
+            return;
+        }
+
+        var sqlFilePath = Path.Combine("Data", "CountriesStatesCities.sql");
+
+        if (!File.Exists(sqlFilePath))
+        {
+            Console.WriteLine($"No se encontró el archivo: {sqlFilePath}");
+            return;
+        }
+
+        Console.WriteLine("Ejecutando CountriesStatesCities.sql...");
+
+        var script = await File.ReadAllTextAsync(sqlFilePath);
+
+        // 🔹 divide el script en bloques por "GO"
+        var batches = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
+        // 🔹 obten la conexión subyacente de EF
+        var connection = (SqlConnection)_context.Database.GetDbConnection();
+        var wasClosed = connection.State == System.Data.ConnectionState.Closed;
+
+        if (wasClosed)
+            await connection.OpenAsync();
+
+        // 🔹 ejecuta todo dentro de una transacción
+        await using var transaction = await connection.BeginTransactionAsync();
+
+        try
+        {
+            foreach (var batch in batches)
+            {
+                var commandText = batch.Trim();
+                if (string.IsNullOrWhiteSpace(commandText))
+                    continue;
+
+                using var command = connection.CreateCommand();
+                command.Transaction = (SqlTransaction)transaction;
+                command.CommandText = commandText;
+                command.CommandTimeout = 600; // ⏱️ aumenta el tiempo máximo por bloque
+                await command.ExecuteNonQueryAsync();
+            }
+
+            await transaction.CommitAsync();
+            Console.WriteLine("Archivo .sql ejecutado correctamente ✅");
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+            Console.WriteLine($"❌ Error ejecutando el archivo .sql: {ex.Message}");
+            throw;
+        }
+        finally
+        {
+            if (wasClosed)
+                await connection.CloseAsync();
+        }
     }
 
     private async Task CheckCountriesAsync()

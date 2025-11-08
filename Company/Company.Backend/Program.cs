@@ -35,16 +35,12 @@ builder.Services.AddScoped<IEmployeesUnitOfWork, EmployeesUnitOfWork>();
 
 var app = builder.Build();
 
-SeedData(app);
-void SeedData(WebApplication app)
+await SeedDataAsync(app);
+async Task SeedDataAsync(WebApplication app)
 {
-    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
-
-    using (var scope = scopedFactory!.CreateScope())
-    {
-        var service = scope.ServiceProvider.GetService<SeedDb>();
-        service!.SeedAsync().Wait();
-    }
+    using var scope = app.Services.CreateScope();
+    var seeder = scope.ServiceProvider.GetRequiredService<SeedDb>();
+    await seeder.SeedAsync();
 }
 
 if (app.Environment.IsDevelopment())
