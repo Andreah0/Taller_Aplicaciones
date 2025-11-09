@@ -5,9 +5,11 @@ using Company.Frontend.Components.Shared;
 using MudBlazor;
 using System.Diagnostics.Metrics;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Company.Frontend.Components.Pages.Employees;
 
+[Authorize(Roles = "Admin")]
 public partial class EmployeesIndex
 {
     private List<Employee>? Employees { get; set; }
