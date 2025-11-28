@@ -97,6 +97,8 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
     .AddEntityFrameworkStores<DataContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 await SeedDataAsync(app);

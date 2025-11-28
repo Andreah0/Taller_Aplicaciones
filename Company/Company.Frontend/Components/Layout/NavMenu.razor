@@ -1,11 +1,17 @@
 ﻿<MudNavMenu>
     <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Inicio</MudNavLink>
-    <AuthorizeView Roles="Admin">
+
+    <!-- Empleados visible para Admin o User -->
+    <AuthorizeView Roles="Admin,User">
         <Authorized>
             <MudNavLink Href="employees" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Badge">Empleados</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+
+    <!-- Países sólo para Admin -->
+    <AuthorizeView Roles="Admin">
+        <Authorized>
             <MudNavLink Href="countries" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">Países</MudNavLink>
         </Authorized>
     </AuthorizeView>
 </MudNavMenu>
-
-

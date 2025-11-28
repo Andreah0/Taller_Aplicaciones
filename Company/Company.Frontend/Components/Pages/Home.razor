@@ -2,7 +2,7 @@
 
 <PageTitle>Inicio</PageTitle>
 
-<AuthorizeView Roles="Admin">
+<AuthorizeView Roles="Admin, User">
     <Authorized>
         <MudText Typo="Typo.h3" Class="m-2" GutterBottom="true">Hola @context.User.Identity?.Name</MudText>
     </Authorized>
